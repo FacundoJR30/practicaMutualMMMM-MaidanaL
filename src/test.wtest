@@ -1,0 +1,13 @@
+import PracticaMutual.*
+import socios.*
+
+test "testX" {
+	var roque = new Socios(actMax = 2)
+	var viaje1 = new ViajeDePlaya(idioma = "espaniol", largoDePlaya = 2000)
+	var viaje2 = new ViajeDePlaya(idioma = "espaniol", largoDePlaya = 1000)
+	roque.actividades(viaje1)
+	roque.actividades(viaje2)
+	roque.actividadesForzadas()
+	assert.equals([viaje1], roque.actividadesForzadas())
+	
+}
