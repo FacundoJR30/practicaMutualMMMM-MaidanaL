@@ -1,67 +1,63 @@
 class Viaje {
 	
 	const property idioma = #{}
-	const implicaEsfuerzo = false
-	const sirveBroncearse = false
-	const cantDias = 0 
 	
-	method esInteresante(){return idioma.size() > 2}
+	method esInteresante() = idioma.size() > 1
 	method implicaEsfuerzo()
 	method sirveBroncearse()
 	method cantDias()
+	
 }
 
 class ViajeDePlaya inherits Viaje {
 	const property largoDePlaya 
 	
-	override method cantDias(){
-		return largoDePlaya / 500
-	}
+	override method cantDias() = largoDePlaya / 500
 	
-	override method implicaEsfuerzo(){
-		return largoDePlaya > 1200
-	}
+	override method implicaEsfuerzo() = largoDePlaya > 1200
 	
-	override method sirveBroncearse(){ return true}
+	override method sirveBroncearse() = true
 	
 }
 
 class ExcursionACiudad inherits Viaje{
-	const property atracciones
+	var property atracciones
 	
-	override method cantDias(){ return atracciones / 2 }
+	override method cantDias() = atracciones / 2 
 	
-	override method implicaEsfuerzo(){return atracciones.between(5, 8)}
+	override method implicaEsfuerzo() = atracciones.between(5, 8)
 	
-	override method sirveBroncearse(){return false}
-	override method esInteresante(){return super() or atracciones == 5}
+	override method sirveBroncearse() = false
+	override method esInteresante() = super() or atracciones == 5
 }
 
  class CiudadTropical inherits ExcursionACiudad {
- 	override method cantDias(){return super() + 1}
- 	override method sirveBroncearse(){ return true}
+ 	override method cantDias() = super() + 1
+ 	override method sirveBroncearse() = true
  }
 
 
 class SalidaDeTrekking inherits Viaje{
-	const property kilometros
+	var property kilometros
 	const property diasDeSol
 	
-	override method cantDias(){
-		return kilometros / 50
-	}
+	override method cantDias() = kilometros / 50
 	
-	override method implicaEsfuerzo(){return kilometros > 80}
+	override method implicaEsfuerzo() = kilometros > 80
 	
-	override method sirveBroncearse(){return diasDeSol > 200 or (diasDeSol.between(100, 200) and kilometros > 120)}
+	override method sirveBroncearse() = diasDeSol >= 200 or (diasDeSol.between(100, 200) and kilometros > 120)
 	
-	override method esInteresante(){return super() and diasDeSol > 140}
+	override method esInteresante() = super() and diasDeSol > 140
 }
 
 class ClasesDeGimnasia inherits Viaje {
 	
-	override method idioma(){idioma.add("Español")}
+	method initialize(){
+		if(idioma != #{"español"}){
+			self.error("solo se perimte clase de gimnasia en español")
+		}
+	}
 	override method cantDias() = 1
-	override method implicaEsfuerzo(){return true}
-	override method sirveBroncearse(){return false}	
+	override method implicaEsfuerzo() = true
+	override method sirveBroncearse() = false	
 }
